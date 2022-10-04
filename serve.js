@@ -3,7 +3,7 @@ const express = require('express');
 const { readFileSync } = require('fs');
 const path = require('path');
 const app = express();
-const baseFolder = 'src';
+const baseFolder = 'public';
 const port = 3000;
 
 app.use(express.json());
