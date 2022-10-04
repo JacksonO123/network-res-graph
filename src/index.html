@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wifi Res Graph</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  </head>
+  <body>
+    <div id="chart"></div>
+    <table>
+      <tr>
+        <td>Average</td>
+        <td id="average"></td>
+      </tr>
+      <tr>
+        <td>Min</td>
+        <td id="min"></td>
+      </tr>
+      <tr>
+        <td>Max</td>
+        <td id="max"></td>
+      </tr>
+    <script>
+      fetch('/data')
+        .then((res) => res.json())
+        .then((data) => {
+          const times = data.times;
+
+          const max = times.reduce(
+            (prev, current) => (+current > prev ? +current : prev),
+            0
+          ).toFixed(2);
+
+          const min = times.reduce(
+            (prev, current) => (+current < prev ? +current : prev),
+            +times[0],
+          ).toFixed(2);
+
+          const average = (times.reduce(
+            (prev, current) => +prev + +current,
+            0
+          )/times.length).toFixed(2);
+
+          document.getElementById('max').innerHTML = max;
+          document.getElementById('min').innerHTML = min;
+          document.getElementById('average').innerHTML = average;
+
+          const options = {
+            series: [
+              {
+                name: 'Response Time (ms)',
+                data: times,
+              },
+            ],
+            chart: {
+              height: 350,
+              type: 'area',
+            },
+            dataLabels: {
+              enabled: false,
+            },
+            stroke: {
+              curve: 'smooth',
+            },
+            xaxis: {
+              type: 'category',
+              categories: times.map((_, i) => i),
+            },
+          };
+          const chart = new ApexCharts(
+            document.querySelector('#chart'),
+            options
+          );
+          chart.render();
+        });
+    </script>
+  </body>
+</html>

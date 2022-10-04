@@ -1,0 +1,15 @@
+{
+  "name": "wifi-res-graph",
+  "version": "1.0.0",
+  "description": "Graphing the response time of endpoints over time",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "serve": "node serve.js"
+  },
+  "author": "Jackson Otto",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
