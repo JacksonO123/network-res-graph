@@ -1,15 +1,18 @@
 {
-  "name": "wifi-res-graph",
+  "name": "network-res-graph",
   "version": "1.0.0",
   "description": "Graphing the response time of endpoints over time",
-  "main": "index.js",
+  "main": "serve.ts",
   "scripts": {
-    "start": "node index.js",
-    "serve": "node serve.js"
+    "serve": "bun run src/serve.ts",
+    "ping": "bun run src/ping.ts"
   },
   "author": "Jackson Otto",
   "license": "ISC",
-  "dependencies": {
-    "express": "^4.18.1"
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
   }
 }
